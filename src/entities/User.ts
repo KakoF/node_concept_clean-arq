@@ -14,4 +14,10 @@ export class User {
       this.id = uuidv4()
     }
   }
+
+  public isValid(): void {
+    if (!this.name) throw new Error('Nome deve ser preenchido')
+    if (!this.email) throw new Error('Email deve ser preenchido')
+    if (!this.password) throw new Error('Password deve ser preenchido')
+  }
 }

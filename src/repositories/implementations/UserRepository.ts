@@ -3,7 +3,7 @@ import { IUsersRepository } from '../IUsersRepository'
 import { Client } from 'pg'
 import { IDbContext } from '../context/IDbContext'
 
-export class PostgresUserRepository implements IUsersRepository {
+export class UserRepository implements IUsersRepository {
   private _contex: IDbContext
   constructor(contex: IDbContext) {
     this._contex = contex

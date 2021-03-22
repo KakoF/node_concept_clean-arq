@@ -19,6 +19,7 @@ export class CreateUserUseCase {
       throw new Error('Usuário já existe')
     }
     const userData = new User(data)
+    userData.isValid()
     const user = await this._usersRepository.save(userData)
     await this._emailProvider.sendEmail({
       to: {
