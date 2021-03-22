@@ -26,6 +26,7 @@ export class CreateUserUseCase {
     if (exist) {
       throw new Error('Usuário já existe')
     }
+    //const userData = new User(data)
     const userData = new User(data.name, data.email, data.password)
     userData.isValid()
     const user = await this._usersRepository.save(userData)
