@@ -4,12 +4,13 @@ import { dataContext, IDbContext } from '../IDbContext'
 export class Context implements IDbContext {
   private _client: Client
   constructor() {
+    console.log(process.env.PORT)
     this._client = new Client({
-      user: 'kako',
-      host: 'localhost',
-      database: 'SolidBase',
-      password: 'kako123456',
-      port: 5432,
+      user: process.env.DBUSER,
+      host: process.env.DBHOST,
+      database: process.env.DBDATABASE,
+      password: process.env.DBPASSWORD,
+      port: parseInt(process.env.DBPORT),
     })
     this._client.connect()
   }
