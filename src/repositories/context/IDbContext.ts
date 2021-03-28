@@ -10,6 +10,7 @@ export interface dataContext {
 
 export interface IDbContext {
   //connect(connection: dataContext): Promise<void>
+  begin(): Promise<void>
   close(): Promise<void>
   select(query: any, values: any): Promise<User>
   insert(query: any, values: any): Promise<User>

@@ -1,3 +1,4 @@
+import { parse } from 'dotenv/types'
 import { Client } from 'pg'
 import { dataContext, IDbContext } from '../IDbContext'
 
@@ -10,13 +11,16 @@ export class Context implements IDbContext {
       host: process.env.DBHOST,
       database: process.env.DBDATABASE,
       password: process.env.DBPASSWORD,
-      port: parseInt(process.env.DBPORT),
+      port: Number(process.env.DBPORT),
     })
     this._client.connect()
   }
 
-  close(): Promise<void> {
-    throw new Error('Method not implemented.')
+  async begin(): Promise<void> {
+    await this._client.query('BEGIN')
+  }
+  async close(): Promise<void> {
+    await this._client.end()
   }
   async select(query: any, values: any): Promise<any> {
     const res = await this._client.query(query, values)
@@ -24,13 +28,12 @@ export class Context implements IDbContext {
   }
   async insert(query: any, values: any): Promise<any> {
     const res = await this._client.query(query, values)
-    await this._client.end()
     return res.rows[0]
   }
-  commit(): Promise<void> {
-    throw new Error('Method not implemented.')
+  async commit(): Promise<void> {
+    await this._client.query('COMMIT')
   }
-  rollback(): Promise<void> {
-    throw new Error('Method not implemented.')
+  async rollback(): Promise<void> {
+    await this._client.query('ROLLBACK')
   }
 }
